@@ -6,9 +6,17 @@ async function getFoods() {
     foods = await fetch('http://localhost:8080/api/foods/').then(response => response.json())
 
 
-    console.log(foods);
+    // console.log(foods);
 }
 
+
+function changeToBasketPage() {
+    window.location.replace("/templates/basket.html")
+}
+
+function changeToHomePage() {
+    window.location.replace("/templates/home.html")
+}
 
 async function insertFoodsData(reload = false) {
     if (reload) {
@@ -39,5 +47,22 @@ async function insertFoodsData(reload = false) {
     }
 
 }
+
+document.getElementById("searchInput").addEventListener("input", (e) => {
+    let inputValue = e.target.value;
+    let searchResultFoods = [];
+    if (inputValue.trim().length == 0) {
+        insertFoodsData(true)
+    }
+
+    for (let i = 0; i < foods.length; i++) {
+        let food = foods[i];
+        if (food.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1 || food.restaurant.name.toLowerCase().indexOf(inputValue.toLowerCase()) > -1) {
+            searchResultFoods.push(food);
+        }
+    }
+    foods = searchResultFoods;
+    insertFoodsData(false);
+})
 
 insertFoodsData(true);
