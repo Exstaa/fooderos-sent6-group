@@ -38,7 +38,6 @@ public class FoodRestController {
 		if(resultFood.isEmpty()) {
 			throw new FoodNotFoundException("Food is not found");
 		}
-		System.out.println("1");
 		return new ResponseEntity<Food>(resultFood.get(), HttpStatus.OK);
 	}
 	

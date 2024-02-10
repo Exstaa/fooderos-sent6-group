@@ -56,6 +56,29 @@ async function insertBasketData(reload = false) {
         deleteButton.innerText = "Delete";
         deleteButton.setAttribute("class", "btn btn-danger");
 
+        let basketFoodObjectIndex = -1;
+
+        deleteButton.addEventListener("click", function () {
+            basketFoodObjects.find((iteratedBasketFoodObject, index) => {
+                if (iteratedBasketFoodObject.id == basketFoodObject.id) {
+                    basketFoodObjectIndex = index;
+                }
+                console.log("hi")
+            })
+
+            basketFoodObjects.splice(basketFoodObjectIndex, 1);
+            localStorage.setItem("fooderos-basket", JSON.stringify(basketFoodObjects))
+           
+            Swal.fire({
+                icon: "success",
+                title: "Basket",
+                text: "Deleted from Basket", 
+                timer: 1200
+            })
+           
+            insertBasketData(false);
+        })
+
         imageTd.appendChild(image);
         actionTd.appendChild(deleteButton);
 
