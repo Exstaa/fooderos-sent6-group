@@ -2,6 +2,14 @@ let foods = [];
 
 let foodCardsElement = document.getElementById("food-cards");
 
+let basketString = localStorage.getItem("fooderos-basket");
+
+let basketFoods = [];
+
+if (basketString != null) {
+    basketFoods = JSON.parse(basketString);
+}
+
 async function getFoods() {
     foods = await fetch('http://localhost:8080/api/foods/').then(response => response.json())
 
@@ -9,14 +17,6 @@ async function getFoods() {
     // console.log(foods);
 }
 
-
-function changeToBasketPage() {
-    window.location.replace("/templates/basket.html")
-}
-
-function changeToHomePage() {
-    window.location.replace("/templates/home.html")
-}
 
 async function insertFoodsData(reload = false) {
     if (reload) {
@@ -36,7 +36,7 @@ async function insertFoodsData(reload = false) {
               <p class="card-text">${food.restaurant.name}</p>
               <p class="card-text">${food.price} AZN</p>
              <div class="d-flex justify-content-center ">
-                <button class="btn btn-warning text-white">Basket</button>
+                <button onclick="addToBasket(${food.id})" class="btn btn-warning text-white">Basket</button>
              </div>
             </div>
           </div>
@@ -45,12 +45,12 @@ async function insertFoodsData(reload = false) {
 
         foodCardsElement.innerHTML += card
     }
-
 }
 
 document.getElementById("searchInput").addEventListener("input", (e) => {
     let inputValue = e.target.value;
     let searchResultFoods = [];
+
     if (inputValue.trim().length == 0) {
         insertFoodsData(true)
     }
@@ -61,8 +61,38 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
             searchResultFoods.push(food);
         }
     }
+
     foods = searchResultFoods;
     insertFoodsData(false);
 })
+
+function addToBasket(id) {
+    let exist = false;
+
+    basketFoods.find((basketItem)=>{
+        if(basketItem.id == id){
+            exist = true;
+            return basketItem;
+        }
+    })
+
+    if (!exist) {
+        basketFoods.push({id: id});
+        Swal.fire({
+            icon: "success",
+            title: "Basket",
+            text: "Added to basket",
+            timer: 1200
+        });
+        localStorage.setItem("fooderos-basket", JSON.stringify(basketFoods))
+    } else {
+        Swal.fire({
+            icon: "error",
+            title: "Basket",
+            text: "This food is already in your basket. Improve ur memory dumb",
+            timer: 1200
+        });
+    }
+}
 
 insertFoodsData(true);
