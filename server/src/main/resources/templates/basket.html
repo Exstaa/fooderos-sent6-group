@@ -73,27 +73,31 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Sum</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="basket-foods-table">
-                            <!--   <tr>
-                        <th scope="row">1</th>
-                        <td>Burger</td>
-                        <td>
-                            <img src="https://www.cobsbread.com/wp-content/uploads/2022/09/Pepperoni-pizza-850x630-1-585x400-1.jpg" style="width: 150px; height: 150px;" alt="">
-                        </td>
-                        <td>6.5</td>
-                        <td>
-                            <button class="btn btn-danger ">Delete</button>
+                        <form onsubmit="buyBasketItems(event)">
+                            <tbody id="basket-foods-table">
 
-                        </td>
-                      </tr> -->
-                        </tbody>
+                            </tbody>
+
                     </table>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-2">
+
+            </div>
+            <div class="col-4">
+                <span>Total Price: <span id="total-price">0 AZN</span></span>
+                <button type="submit" class="btn btn-primary">Buy</button>
+            </div>
+        </div>
+        </form>
+
     </div>
     <script src="../static/js/change.js"></script>
     <script src="../static/js/basket.js"></script>

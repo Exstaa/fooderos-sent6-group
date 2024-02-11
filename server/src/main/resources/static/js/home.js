@@ -69,15 +69,15 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
 function addToBasket(id) {
     let exist = false;
 
-    basketFoods.find((basketItem)=>{
-        if(basketItem.id == id){
+    basketFoods.find((basketItem) => {
+        if (basketItem.id == id) {
             exist = true;
             return basketItem;
         }
     })
 
     if (!exist) {
-        basketFoods.push({id: id});
+        basketFoods.push({ id: id });
         Swal.fire({
             icon: "success",
             title: "Basket",
@@ -89,7 +89,7 @@ function addToBasket(id) {
         Swal.fire({
             icon: "error",
             title: "Basket",
-            text: "This food is already in your basket. Improve ur memory dumb",
+            text: "This food is already in your basket.",
             timer: 1200
         });
     }
