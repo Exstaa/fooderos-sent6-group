@@ -128,13 +128,13 @@ function buyBasketItems(event) {
     let allow = true;
     let basketFoodObject;
     for (let i = 0; i < basketFoodObjects.length; i++) {
-         basketFoodObject = basketFoodObjects[i];
+        basketFoodObject = basketFoodObjects[i];
         if (Number(document.getElementById(`quantity${basketFoodObject.id}`).value) < 1) {
             allow = false;
             break;
         }
     }
-    if(allow){
+    if (allow) {
         Swal.fire({
             icon: "success",
             title: "Redirect",
@@ -142,11 +142,11 @@ function buyBasketItems(event) {
             timer: 1200
         });
         for (let i = 0; i < basketFoodObjects.length; i++) {
-             basketFoods[i].quantity = Number(document.getElementById(`quantity${basketFoodObject.id}`).value);
-        } 
-        localStorage.setItem("fooderos-basket",JSON.stringify(basketFoods))
+            basketFoods[i].quantity = Number(document.getElementById(`quantity${basketFoodObject.id}`).value);
+        }
+        localStorage.setItem("fooderos-basket", JSON.stringify(basketFoods))
         window.location.replace("/templates/confirm-order.html")
-    }else{
+    } else {
         Swal.fire({
             icon: "error",
             title: "Basket",
